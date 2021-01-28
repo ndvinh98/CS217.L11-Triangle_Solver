@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- FORM VIEW -->
+    <record id="triangle_problem_view_form" model="ir.ui.view">
+        <field name="name">triangle_problem_view_form</field>
+        <field name="model">triangle.problem</field>
+        <field name="arch" type="xml">
+            <form string="Triangle Problem" class="o_lead_opportunity_form">
+                <header>
+
+                </header>
+                    <sheet>
+                        <group>
+                            <field name="notes" nolabel="1" widget="html" />
+                        </group>
+                        <div class="oe_title">
+                            <h1>
+                                <field
+                                name="name"
+                                placeholder="...."
+                                required="1"
+                                invisible="1"
+                            />
+                            </h1>
+                        </div>
+
+                        <group string="Rules applied">
+                            <field
+                            name="rule_ids"
+                            nolabel="1"
+                            mode="tree"
+                            widget="one2many"
+                        >
+                                <tree>
+                                    <field name="name" />
+                                    <field
+                                    name="rule_hypothesis_variables"
+                                    widget="many2many_tags"
+                                />
+                                    <field name="rule_conclution_variable" />
+                                    <field name="equation" />
+                                </tree>
+                            </field>
+                        </group>
+                        <group>
+                            <group string="Hypothesis variables">
+                                <field
+                                name="problem_hypothesis_variables"
+                                nolabel="1"
+                                mode="tree"
+                                widget="many2many"
+                                options="{'no_create':True}"
+                            >
+                                    <tree>
+                                        <field name="name" />
+                                        <field name="type" />
+                                        <field name="value" />
+                                    </tree>
+                                </field>
+                            </group>
+                            <group string="Conclution variable">
+                               <field
+                                name="problem_conclution_variable"
+                                options="{'no_create':True}"
+                            />
+                               <button
+                                name="solve_problem"
+                                type="object"
+                                class="oe_highlight"
+                                string="Solve Problem"
+                            />
+                            </group>
+                        </group>
+
+                    </sheet>
+                </form>
+        </field>
+    </record>
+
+    <!-- KANBAN VIEW -->
+    <record id="triangle_problem_view_kanban" model="ir.ui.view">
+        <field name="name">triangle_problem_view_kanban</field>
+        <field name="model">triangle.problem</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+                <field name="name" />
+                <field name="notes" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                            <div class="row">
+                                <div class="col-12">
+                                    <strong class="o_kanban_record_title"><span><t
+                                                t-esc="record.name.value"
+                                            /></span></strong>
+                                </div>
+                            </div>
+
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+
+    <record id="action_open_solver_triangle_problem" model="ir.actions.act_window">
+        <field name="name">Triangle Solver</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">triangle.problem</field>
+        <field name="view_mode">kanban,form</field>
+    </record>
+
+
+    <menuitem
+        id="triangle_solver_root_menu"
+        name="Triangle Solver"
+        sequence="1"
+        groups="base.group_user"
+        web_icon="triangle_solver,static/description/icon.png"
+    />
+
+    <menuitem
+        name="Triangle Solver"
+        parent="triangle_solver_root_menu"
+        id="triangle_solver_menu_app"
+        sequence="1"
+        groups="base.group_user"
+        action="action_open_solver_triangle_problem"
+    />
+</odoo>

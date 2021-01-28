@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_triangle_parametter,access_triangle_parametter,model_triangle_parametter,base.group_user,1,1,1,1
+access_triangle_rule,access_triangle_rule,model_triangle_rule,base.group_user,1,1,1,1
+access_triangle_problem,access_triangle_problem,model_triangle_problem,base.group_user,1,1,1,1
